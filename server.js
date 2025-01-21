@@ -12,13 +12,8 @@ const io = socketIo(server, {
 });
 
 const users = {};
+app.use(express.static(path.join(__dirname))); // Serve static files from the 'public' folder
 
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the 'public' folder
-
-// Serve index.html at the root path
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 io.on('connection', (socket) => {
   console.log(`New connection: ${socket.id}`);
