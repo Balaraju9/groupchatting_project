@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Room</title>
-    <script defer src="https://groupchattingapp-qh2y.onrender.com/socket.io/socket.io.js"></script>
+    <script defer src="http://localhost:4000/socket.io/socket.io.js"></script>
     <script defer src="script.js"></script>
     <style>
         * {
@@ -21,6 +21,32 @@
             flex-direction: column;
             padding: 20px;
         }
+        #user-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align the text to the right */
+    font-size: 0.6em;
+    max-height: 50px; /* Set the maximum height for the list */
+    overflow-y: auto; /* Enable vertical scrolling */
+    
+}
+
+#user-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+#user-list ul li {
+    padding: 2px;
+
+    
+    color: white;
+}
+
+
+
 
         .chat-container {
             max-width: 800px;
@@ -38,7 +64,7 @@
         .chat-header {
             background: #4a90e2;
             color: white;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             font-size: 1.5em;
             font-weight: bold;
@@ -61,6 +87,10 @@
             display: flex;
             gap: 10px;
             align-items: center;
+        }
+        #countofusers{
+            color: lightgreen;
+                
         }
 
         #message-input {
@@ -209,9 +239,28 @@
 
     <div class="chat-container">
         <div class="chat-header">
-            Chat Room 💡
+            <h2 >Chat Room💡</h2>
+            <h4 style="display: flex;
+            flex-direction: row-reverse;
+            align-items: flex-end;
+            font-size: 0.9em;
+            ">: Online Users<span id="countofusers" ></span></h4>
+            <div id="user-list">
+                
+                <ol style="color: #000;">_Names_</ol>
+                <ul>
+                   
+                    
+                   
+                </ul>
+            </div>
         </div>
+        
+        
+       
+
         <div id="message-container"></div>
+     
 
         <form id="send-container">
             <label for="file-input" class="custom-file-label">📁 Choose File</label>
