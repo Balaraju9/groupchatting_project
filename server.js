@@ -17,14 +17,17 @@ app.use(express.static(path.join(__dirname))); // Serve static files from the 'p
 
 io.on('connection', (socket) => {
   console.log(`New connection: ${socket.id}`);
+  socket.emit('howmanyusers', Object.keys(users).length);
 
   socket.on('new-user', (name) => {
     users[socket.id] = name;
     console.log(`User is connected: ${name}`);
     socket.broadcast.emit('user-connected', name);
+    io.emit('update-user-list', Object.values(users));
   });
 
   socket.on('send-file', (data) => {
+    data.userName = users[data.fileuser];
     socket.broadcast.emit('receive-file', data);
   });
 
@@ -37,6 +40,9 @@ io.on('connection', (socket) => {
       io.emit('user-disconnected', users[socket.id]);
       delete users[socket.id];
       console.log(`User disconnected: ${socket.id}`);
+      io.emit('update-user-list', Object.values(users)); //  updated user list
+      socket.emit('howmanyusers', Object.keys(users).length);
+    
     }
   });
 });
