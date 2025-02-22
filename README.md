@@ -5,15 +5,16 @@
 
 ## 📱 Group Chatting App  
 This is a **real-time group chatting app** that allows users to:  
-✅ Create chat groups  
-✅ Send and receive messages instantly  
-✅ Share images and files  
-✅ Get notified about new messages  
+## 🚀 Features  
+✅ Real-time messaging with WebSockets  
+✅ Multiple users in a single chatroom  
+✅ Notifications for new messages  
+✅ Responsive UI with HTML & CSS  
+✅ Secure backend using Node.js  
 
-🔹 **Tech Stack:**  
-- **Frontend:** Flutter  
-- **Backend:** Firebase  
-- **State Management:** GetX  
-- **Database:** Firestore  
+## 🛠️ Tech Stack  
+- **Frontend:** HTML, CSS  
+- **Backend:** Node.js (Express.js)  
+- **Real-time Communication:** WebSockets (Socket.io)  
 
-🚀 **Try it now and experience seamless communication!**
+
