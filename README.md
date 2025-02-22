@@ -7,9 +7,7 @@
 This is a **real-time group chatting app** that allows users to:  
 ## 🚀 Features  
 ✅ Real-time messaging with WebSockets  
-✅ Multiple users in a single chatroom  
-✅ Notifications for new messages  
-✅ Responsive UI with HTML & CSS  
+✅ Multiple users in a single chatroom 
 ✅ Secure backend using Node.js  
 
 ## 🛠️ Tech Stack  
