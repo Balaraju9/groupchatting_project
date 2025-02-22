@@ -1,9 +1,3 @@
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/00fbbe89-07a8-44b3-9fab-e3bbbe555383" width="400" hspace="20"> 
-
-   
-  <img src="https://github.com/user-attachments/assets/66d20c02-5a20-423a-8fc8-dab09f7a5ede" width="400" hspace="20">
-</p>
 
 ## 📱 Group Chatting App  
 This is a **real-time group chatting app** that allows users to:  
@@ -18,3 +12,9 @@ This is a **real-time group chatting app** that allows users to:
 - **Real-time Communication:** WebSockets (Socket.io)  
 
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/00fbbe89-07a8-44b3-9fab-e3bbbe555383" width="400" hspace="20"> 
+
+   
+  <img src="https://github.com/user-attachments/assets/66d20c02-5a20-423a-8fc8-dab09f7a5ede" width="400" hspace="20">
+</p>
