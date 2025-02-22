@@ -1,6 +1,3 @@
-![image](https://github.com/user-attachments/assets/99ae146a-4eed-4072-a278-d810fc399550)
-so thisis slkdl
-
-
-![image](https://github.com/user-attachments/assets/302a00b9-263a-4e30-8f37-8bfce893ae47)
-so thiss osij
+![Project Overview](https://github.com/user-attachments/assets/7216de47-894c-42d7-84ea-a9e555300f01)  
+<br>  
+This is my group chatting app. It allows users to create groups, send messages, and share files in real time.
