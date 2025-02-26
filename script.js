@@ -1,4 +1,4 @@
-const socket = io('https://groupchattingapp-qh2y.onrender.com');
+const socket = io('https://groupchattingapp-qh2y.onrender.com');//idi change chesay
 const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
@@ -28,6 +28,7 @@ socket.emit('new-user', userName);
 socket.on('connect', () => {
   if (puaboutserver === 1) {
     appendMessage('Server on </>', 'nothing');
+    location.reload();
     puaboutserver = 0;
   }
 });
@@ -51,7 +52,7 @@ fileInput.addEventListener('change', () => {
       fileType: file.type,
       fileData: reader.result,
       fileuser: socket.id,
-      userName: ""
+      userName: ""  
     });
 
     appendMessage(`You sent a file: ${file.name}`, 'right');
@@ -60,13 +61,43 @@ fileInput.addEventListener('change', () => {
 });
 
 socket.on('receive-file', (data) => {
-  const fileLink = document.createElement('a');
-  fileLink.href = data.fileData;
-  fileLink.download = data.fileName;
-  fileLink.textContent = `File: ${data.fileName}`;
-  fileLink.target = '_blank';
-  appendMessage(`${data.userName} sent this file`, 'left'); // Empty message to keep alignment
-  messageContainer.appendChild(fileLink); // Add file link to messages
+  const fileContainer = document.createElement('div');
+  fileContainer.classList.add('file-message');
+
+  let filePreview;
+  if (data.fileName.match(/\.(jpeg|jpg|png|gif)$/)) {
+    // If it's an image, show the preview
+    filePreview = document.createElement('img');
+    filePreview.src = data.fileData;
+    filePreview.classList.add('file-preview');
+  } else {
+    // Show file icon for non-image files
+    filePreview = document.createElement('img');
+    filePreview.src = 'file-icon.png'; // Replace with actual file icon
+    filePreview.classList.add('file-icon');
+  }
+
+  const fileInfo = document.createElement('div');
+  fileInfo.classList.add('file-info');
+
+  const fileName = document.createElement('p');
+  fileName.textContent = data.fileName;
+  fileName.classList.add('file-name');
+
+  const downloadButton = document.createElement('a');
+  downloadButton.href = data.fileData;
+  downloadButton.download = data.fileName;
+  downloadButton.textContent = 'Download';
+  downloadButton.classList.add('download-btn');
+
+  fileInfo.appendChild(fileName);
+  fileInfo.appendChild(downloadButton);
+
+  fileContainer.appendChild(filePreview);
+  fileContainer.appendChild(fileInfo);
+
+  appendMessage(`${data.userName} sent this ⬇️ file`, 'left'); 
+  messageContainer.appendChild(fileContainer);
 });
 
 socket.on('chat-message', (data) => {
@@ -130,4 +161,3 @@ function appendMessage(message, type) {
     }
   });
 }
-
