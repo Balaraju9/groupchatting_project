@@ -1,273 +1,315 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Room</title>
-    <script defer src="https://groupchattingapp-qh2y.onrender.com/socket.io/socket.io.js"></script>
-    <script defer src="script.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Chat Room</title>
+      <script defer src="https://groupchattingapp-qh2y.onrender.com/socket.io/socket.io.js"></script>
+      <script defer src="script.js"></script>
+      <style>
+        .file-message {
+    display: flex;
+    align-items: center;
+    background: #f0f2f5;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px 0;
+    max-width: 80%;
+  }
 
-        body {
-            background: #f5f7fa;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        #user-list {
+  .file-preview, .file-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .file-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Align the text to the right */
-    font-size: 0.6em;
-    max-height: 50px; /* Set the maximum height for the list */
-    overflow-y: auto; /* Enable vertical scrolling */
-    
-}
+  }
 
-#user-list ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+  .file-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
 
-
-#user-list ul li {
-    padding: 2px;
-
-    
+  .download-btn {
+    background: #0084ff;
     color: white;
-}
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .download-btn:hover {
+    background: #005bb5;
+  }
+
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+
+          body {
+              background: #f5f7fa;
+              height: 100vh;
+              display: flex;
+              flex-direction: column;
+              padding: 20px;
+          }
+          #user-list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end; /* Align the text to the right */
+      font-size: 0.6em;
+      max-height: 50px; /* Set the maximum height for the list */
+      overflow-y: auto; /* Enable vertical scrolling */
+      
+  }
+
+  #user-list ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+  }
+
+
+  #user-list ul li {
+      padding: 2px;
+
+      
+      color: white;
+  }
 
 
 
 
-        .chat-container {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 90vh;
-        }
+          .chat-container {
+              max-width: 800px;
+              width: 100%;
+              margin: 0 auto;
+              background: white;
+              border-radius: 15px;
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              height: 90vh;
+          }
 
-        .chat-header {
-            background: #4a90e2;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
+          .chat-header {
+              background: #4a90e2;
+              color: white;
+              padding: 10px;
+              text-align: center;
+              font-size: 1.5em;
+              font-weight: bold;
+          }
 
-        #message-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+          #message-container {
+              flex: 1;
+              overflow-y: auto;
+              padding: 20px;
+              background: white;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+          }
 
-        #send-container {
-            padding: 15px;
-            background: white;
-            border-top: 1px solid #eee;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        #countofusers{
-            color: lightgreen;
-                
-        }
+          #send-container {
+              padding: 15px;
+              background: white;
+              border-top: 1px solid #eee;
+              display: flex;
+              gap: 10px;
+              align-items: center;
+          }
+          #countofusers{
+              color: lightgreen;
+                  
+          }
 
-        #message-input {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            outline: none;
-            font-size: 16px;
-            background: #f5f7fa;
-        }
+          #message-input {
+              flex: 1;
+              padding: 12px 20px;
+              border: none;
+              border-radius: 25px;
+              outline: none;
+              font-size: 16px;
+              background: #f5f7fa;
+          }
 
-        button {
-            background: #4a90e2;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
+          button {
+              background: #4a90e2;
+              color: white;
+              border: none;
+              padding: 12px 25px;
+              border-radius: 25px;
+              cursor: pointer;
+              font-size: 16px;
+              font-weight: bold;
+          }
 
-        #file-input {
-            display: none;
-        }
+          #file-input {
+              display: none;
+          }
 
-        .custom-file-label {
-            background: #f5f7fa;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-size: 16px;
-            color: #333;
-            cursor: pointer;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
+          .custom-file-label {
+              background: #f5f7fa;
+              padding: 12px 20px;
+              border-radius: 25px;
+              font-size: 16px;
+              color: #333;
+              cursor: pointer;
+              border: 1px solid #ddd;
+              text-align: center;
+          }
 
-        /* Message Styles */
-        .message {
-            max-width: 60%;
-            padding: 10px 15px;
-            margin: 5px 0;
-            word-wrap: break-word;
-            border-radius: 10px;
-        }
+          /* Message Styles */
+          .message {
+              max-width: 60%;
+              padding: 10px 15px;
+              margin: 5px 0;
+              word-wrap: break-word;
+              border-radius: 10px;
+          }
 
-        /* System message (You joined) */
-        .message.system {
-            background: #e8f2ff;
-            color: #000;
-            text-align: center;
-            max-width: 100%;
-            margin: 5px 0;
-            padding: 15px;
-        }
+          /* System message (You joined) */
+          .message.system {
+              background: #e8f2ff;
+              color: #000;
+              text-align: center;
+              max-width: 100%;
+              margin: 5px 0;
+              padding: 15px;
+          }
 
-        /* Status message (connected/disconnected) */
-        .message.status {
-            background: #f1f1f1;
-            color: #000;
-            text-align: center;
-            width: 100%;
-            max-width: 100%;
-            margin: 5px 0;
-            padding: 15px;
-        }
+          /* Status message (connected/disconnected) */
+          .message.status {
+              background: #f1f1f1;
+              color: #000;
+              text-align: center;
+              width: 100%;
+              max-width: 100%;
+              margin: 5px 0;
+              padding: 15px;
+          }
 
-        /* Left side messages */
-        .message.left {
-            background: #f1f1f1;
-            align-self: flex-start;
-            text-align: left;
-        }
+          /* Left side messages */
+          .message.left {
+              background: #f1f1f1;
+              align-self: flex-start;
+              text-align: left;
+          }
 
-        /* Right side messages */
-        .message.right {
-            background: #e8f2ff;
-            align-self: flex-end;
-            text-align: right;
-        }
+          /* Right side messages */
+          .message.right {
+              background: #e8f2ff;
+              align-self: flex-end;
+              text-align: right;
+          }
 
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+          #overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(0, 0, 0, 0.8);
+              backdrop-filter: blur(5px);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              z-index: 9999;
+          }
 
-        .overlay-content {
-            background: white;
-            padding: 30px 40px;
-            border-radius: 15px;
-            text-align: center;
-        }
+          .overlay-content {
+              background: white;
+              padding: 30px 40px;
+              border-radius: 15px;
+              text-align: center;
+          }
 
-        .overlay-content p {
-            color: #333;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
+          .overlay-content p {
+              color: #333;
+              font-size: 1.2em;
+              margin-bottom: 10px;
+          }
 
-        .overlay-content span {
-            font-size: 2em;
-            margin-left: 10px;
-        }
+          .overlay-content span {
+              font-size: 2em;
+              margin-left: 10px;
+          }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            
-            .chat-container {
-                height: 95vh;
-            }
+          @media (max-width: 600px) {
+              body {
+                  padding: 10px;
+              }
+              
+              .chat-container {
+                  height: 95vh;
+              }
 
-            .message {
-                max-width: 75%;
-            }
-        }
+              .message {
+                  max-width: 75%;
+              }
+          }
 
-        .message a {
-            display: block;
-            color: blue;
-            text-decoration: underline;
-            margin-top: 5px;
-        }
+          .message a {
+              display: block;
+              color: blue;
+              text-decoration: underline;
+              margin-top: 5px;
+          }
 
-    </style>
-</head>
-<body>
+      </style>  
+  </head>
+  <body>
 
-    <div id="overlay">
-        <div class="overlay-content">
-            <p>Enter your name to join the chat</p>
-            <span>👋</span>
-        </div>
-    </div>
+      <div id="overlay">
+          <div class="overlay-content">
+              <p>Enter your name to join the chat</p>
+              <span>👋</span>
+          </div>
+      </div>
 
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2 >Chat Room💡</h2>
-            <h4 style="display: flex;
-            flex-direction: row-reverse;
-            align-items: flex-end;
-            font-size: 0.9em;
-            ">: Online Users<span id="countofusers" ></span></h4>
-            <div id="user-list">
-                
-                <ol style="color: #000;">_Names_</ol>
-                <ul>
-                   
+      <div class="chat-container">
+          <div class="chat-header">
+              <h2 >Chat Room💡</h2>
+              <h4 style="display: flex;
+              flex-direction: row-reverse;
+              align-items: flex-end;
+              font-size: 0.9em;
+              ">: Online Users<span id="countofusers" ></span></h4>
+              <div id="user-list">
+                  
+                  <ol style="color: #000;">_Names_</ol>
+                  <ul>
                     
-                   
-                </ul>
-            </div>
-        </div>
+                      
+                    
+                  </ul>
+              </div>
+          </div>
+          
+          
         
-        
-       
 
-        <div id="message-container"></div>
-     
+          <div id="message-container"></div>
+      
 
-        <form id="send-container">
-            <label for="file-input" class="custom-file-label">📁 Choose File</label>
-            <input type="file" id="file-input" />
-            <input type="text" id="message-input" placeholder="Type your message here..." autocomplete="off">
-            <button type="submit">Send</button>
-        </form>
-    </div>
-</body>
-</html>
+          <form id="send-container">
+              <label for="file-input" class="custom-file-label">📁 Choose File</label>
+              <input type="file" id="file-input" />
+              <input type="text" id="message-input" placeholder="Type your message here..." autocomplete="off">
+              <button type="submit">Send</button>
+          </form>
+      </div>
+  </body>
+  </html>
